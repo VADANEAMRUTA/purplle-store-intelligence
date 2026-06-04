@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marketing Dashboard | Purplle Intelligence</title>
+  <script src="init.js"></script>
+  <link rel="stylesheet" href="dashboard-common.css" />
+  <link rel="stylesheet" href="marketing.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-Tm20GZ8Ht0D+XvE/OVfUzVrYw5Za3jKjUElq2LWDlePw3JDcYqqn4FiptyoWFeSeR5bgN+l0Myqi7dFbdc2/7w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+  <script>
+    const user = localStorage.getItem('purplleDashboardUser');
+    if (!user) { window.location.href = 'login.html'; }
+  </script>
+</head>
+<body class="marketing-theme">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo"><i class="fas fa-store"></i><span>Purplle</span></div>
+      <nav class="nav-menu">
+        <a href="manager.html" class="nav-link"><i class="fas fa-tachometer-alt"></i><span>Manager</span></a>
+        <a href="owner.html" class="nav-link"><i class="fas fa-chart-line"></i><span>Owner</span></a>
+        <a href="security.html" class="nav-link"><i class="fas fa-shield-alt"></i><span>Security</span></a>
+        <a href="marketing.html" class="nav-link active"><i class="fas fa-bullhorn"></i><span>Marketing</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="role-badge"><i class="fas fa-bullhorn"></i><span>Marketing Team</span></div>
+        <div style="display:flex;gap:8px;">
+          <button class="switch-btn" id="switchUserBtn"><i class="fas fa-user"></i><span>Switch</span></button>
+          <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></button>
+        </div>
+      </div>
+    </aside>
+    <main class="main-panel">
+      <header class="dashboard-header">
+        <div class="header-summary">
+          <h1>Marketing Analytics</h1>
+          <p>Campaign performance, customer segmentation, and next-hour recommendations.</p>
+        </div>
+        <div class="header-controls">
+          <div class="user-pill" id="userBadge">Guest · Marketing</div>
+          <div class="status-card">
+            <span class="status-dot disconnected" id="connectionDot"></span>
+            <span id="lastUpdate">Last update: --:--:--</span>
+          </div>
+          <button class="btn-primary" id="exportBtn"><i class="fas fa-file-export"></i> Export</button>
+        </div>
+      </header>
+      <section class="dashboard-grid" style="margin-top: 24px;">
+        <article class="glass-card kpi-card" style="grid-column: span 3;">
+          <div class="card-header"><h3>New Customers</h3></div>
+          <div class="kpi-value" id="newCustomers">0%</div>
+          <div class="mini-text">Based on recent campaigns</div>
+        </article>
+        <article class="glass-card kpi-card" style="grid-column: span 3;">
+          <div class="card-header"><h3>Returning Customers</h3></div>
+          <div class="kpi-value" id="returningCustomers">0%</div>
+          <div class="mini-text">Loyalty segment</div>
+        </article>
+        <article class="glass-card kpi-card" style="grid-column: span 3;">
+          <div class="card-header"><h3>Promo ROI</h3></div>
+          <div class="kpi-value" id="promotionROI">0%</div>
+          <div class="mini-text">Campaign performance</div>
+        </article>
+        <article class="glass-card kpi-card" style="grid-column: span 3;">
+          <div class="card-header"><h3>Best Hours</h3></div>
+          <div class="kpi-value" id="bestHours">--</div>
+          <div class="mini-text">Higher conversion windows</div>
+        </article>
+      </section>
+      <section class="dashboard-grid" style="margin-top: 18px;">
+        <article class="glass-card chart-card" style="grid-column: span 7;">
+          <div class="card-header"><h3>Campaign Comparison</h3></div>
+          <div class="chart-container"><canvas id="campaignChart" height="340"></canvas></div>
+        </article>
+        <article class="glass-card chart-card" style="grid-column: span 5; padding-bottom: 18px;">
+          <div class="card-header"><h3>Customer Segmentation</h3></div>
+          <div class="chart-container" style="height: 240px;"><canvas id="segmentChart"></canvas></div>
+          <div class="range-group" style="margin-top: 16px;"><label for="roiSlider">Interaction Boost</label><input id="roiSlider" type="range" min="0" max="40" value="12" /></div>
+        </article>
+      </section>
+      <section class="glass-card table-card" style="margin-top: 18px;">
+        <div class="card-header"><h3>Hourly Heatmap</h3></div>
+        <div id="heatmapGrid" class="marketing-heatmap"></div>
+      </section>
+      <section class="dashboard-grid" style="margin-top: 18px;">
+        <article class="glass-card chart-card" style="grid-column: span 6;">
+          <div class="card-header"><h3>Weather Correlation</h3></div>
+          <div id="weatherCards" class="weather-grid"></div>
+        </article>
+        <article class="glass-card chart-card" style="grid-column: span 6;">
+          <div class="card-header"><h3>Forecast Simulator</h3></div>
+          <div class="chart-container"><canvas id="forecastChart" height="240"></canvas></div>
+        </article>
+      </section>
+      <div id="toastContainer" class="toast-container"></div>
+    </main>
+  </div>
+  <script src="marketing.js"></script>
+</body>
+</html>

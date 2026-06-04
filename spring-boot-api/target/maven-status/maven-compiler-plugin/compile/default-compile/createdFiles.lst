@@ -1,0 +1,5 @@
+com\purplle\config\WebConfig.class
+com\purplle\repository\UserRepository.class
+com\purplle\StoreIntelligenceApplication.class
+com\purplle\entity\Event.class
+com\purplle\entity\User.class

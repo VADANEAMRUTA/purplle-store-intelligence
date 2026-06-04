@@ -1,0 +1,15 @@
+{"id":1,"personId":"101","event":"ENTRY","cameraId":"camera1","zoneId":"zoneA","timestamp":"2026-06-04T09:15:12","dwellTimeSeconds":0,"staffMember":false}
+{"id":2,"personId":"101","event":"EXIT","cameraId":"camera1","zoneId":"zoneA","timestamp":"2026-06-04T09:23:20","dwellTimeSeconds":488,"staffMember":false}
+{"id":3,"personId":"staff_1","event":"ENTRY","cameraId":"camera1","zoneId":"zoneA","timestamp":"2026-06-04T09:25:05","dwellTimeSeconds":0,"staffMember":true}
+{"id":4,"personId":"staff_1","event":"EXIT","cameraId":"camera1","zoneId":"zoneA","timestamp":"2026-06-04T09:35:38","dwellTimeSeconds":633,"staffMember":true}
+{"id":5,"personId":"102","event":"ENTRY","cameraId":"camera1","zoneId":"zoneA","timestamp":"2026-06-04T09:40:00","dwellTimeSeconds":0,"staffMember":false}
+{"id":129,"personId":"7","event":"ENTRY","cameraId":"ENTRANCE_01","zoneId":"MAIN_DOOR","timestamp":"2026-06-04T17:18:13.244103","dwellTimeSeconds":null,"staffMember":false,"eventType":"ENTRY"}
+{"id":130,"personId":"15","event":"EXIT","cameraId":"ENTRANCE_01","zoneId":"MAIN_DOOR","timestamp":"2026-06-04T17:18:17.679845","dwellTimeSeconds":null,"staffMember":false,"eventType":"EXIT"}
+{"id":131,"personId":"63","event":"ENTRY","cameraId":"ENTRANCE_01","zoneId":"MAIN_DOOR","timestamp":"2026-06-04T17:18:21.573354","dwellTimeSeconds":null,"staffMember":false,"eventType":"ENTRY"}
+{"id":132,"personId":"99","event":"EXIT","cameraId":"ENTRANCE_01","zoneId":"MAIN_DOOR","timestamp":"2026-06-04T17:18:22.210839","dwellTimeSeconds":null,"staffMember":false,"eventType":"EXIT"}
+{"id":133,"personId":"98","event":"EXIT","cameraId":"ENTRANCE_01","zoneId":"MAIN_DOOR","timestamp":"2026-06-04T17:18:22.274041","dwellTimeSeconds":null,"staffMember":false,"eventType":"EXIT"}
+{"id":134,"personId":"129","event":"EXIT","cameraId":"ENTRANCE_01","zoneId":"MAIN_DOOR","timestamp":"2026-06-04T17:18:23.69832","dwellTimeSeconds":null,"staffMember":false,"eventType":"EXIT"}
+{"id":135,"personId":"136","event":"EXIT","cameraId":"ENTRANCE_01","zoneId":"MAIN_DOOR","timestamp":"2026-06-04T17:18:24.051192","dwellTimeSeconds":null,"staffMember":false,"eventType":"EXIT"}
+{"id":136,"personId":"135","event":"EXIT","cameraId":"ENTRANCE_01","zoneId":"MAIN_DOOR","timestamp":"2026-06-04T17:18:24.573602","dwellTimeSeconds":null,"staffMember":false,"eventType":"EXIT"}
+{"id":137,"personId":"4","event":"EXIT","cameraId":"ENTRANCE_01","zoneId":"MAIN_DOOR","timestamp":"2026-06-04T17:38:46.172059","dwellTimeSeconds":null,"staffMember":false,"eventType":"EXIT"}
+{"id":138,"personId":"39","event":"EXIT","cameraId":"ENTRANCE_01","zoneId":"MAIN_DOOR","timestamp":"2026-06-04T17:38:49.392971","dwellTimeSeconds":null,"staffMember":false,"eventType":"EXIT"}

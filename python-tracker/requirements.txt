@@ -1,0 +1,14 @@
+opencv-python
+numpy
+requests
+python-dotenv
+pandas>=1.3.0
+openpyxl>=3.1.5
+matplotlib>=3.4.0
+Pillow>=8.3.0
+torch==2.11.0
+torchvision==0.26.0
+polars>=0.20.0
+ultralytics-thop>=2.0.18
+ultralytics==8.4.56
+

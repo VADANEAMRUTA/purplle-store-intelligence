@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purplle Store Intelligence Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+        <meta http-equiv="refresh" content="0; url=login.html">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏪 Purplle Store Intelligence Dashboard</h1>
+            <p>Real-time Store Analytics</p>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-value" id="occupancy">--</div>
+                <div class="stat-label">Current Visitors</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🚪</div>
+                <div class="stat-value" id="entries">--</div>
+                <div class="stat-label">Today's Entries</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🚶</div>
+                <div class="stat-value" id="exits">--</div>
+                <div class="stat-label">Today's Exits</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-value" id="dwellTime">--</div>
+                <div class="stat-label">Avg Dwell Time</div>
+            </div>
+        </div>
+
+        <div class="alert-container" id="alertContainer" style="display: none;">
+            <div class="alert-card">
+                <span class="alert-icon">⚠️</span>
+                <span class="alert-message" id="alertMessage"></span>
+            </div>
+        </div>
+
+        <div class="recent-events">
+            <h2>📋 Recent Events</h2>
+            <div class="table-container">
+                <table id="eventsTable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Person ID</th>
+                            <th>Event</th>
+                            <th>Camera</th>
+                            <th>Zone</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eventsBody">
+                        <tr>
+                            <td colspan="5" class="loading">Loading events...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="status">
+            <div class="status-indicator" id="statusIndicator"></div>
+            <span id="statusText">Connecting to API...</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+﻿body.owner-theme { --accent: #8e44ad; --accent-soft: rgba(103, 58, 183, 0.18); }
+.sidebar .logo i { color: var(--accent); }
+.nav-link.active, .nav-link:hover { background: rgba(103, 58, 183, 0.14); }
+.heatmap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+.heatmap-cell { border-radius: 22px; padding: 18px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
+.heatmap-cell strong { display: block; margin-bottom: 6px; }
+.weather-grid { display: grid; gap: 14px; }
+.weather-card { padding: 18px; border-radius: 22px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); }
+.weather-card h4 { margin: 0 0 8px; }
+.weather-card p { margin: 0; color: var(--text-secondary); }
+.table-card table th, .table-card table td { padding: 16px 14px; }
+.btn-primary { background: linear-gradient(135deg, #8e44ad, #ab47bc); box-shadow: 0 16px 30px rgba(147, 82, 173, 0.18); }

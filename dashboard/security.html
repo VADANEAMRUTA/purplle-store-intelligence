@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security Dashboard | Purplle Intelligence</title>
+  <script src="init.js"></script>
+  <link rel="stylesheet" href="dashboard-common.css" />
+  <link rel="stylesheet" href="security.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-Tm20GZ8Ht0D+XvE/OVfUzVrYw5Za3jKjUElq2LWDlePw3JDcYqqn4FiptyoWFeSeR5bgN+l0Myqi7dFbdc2/7w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script>
+    const user = localStorage.getItem('purplleDashboardUser');
+    if (!user) { window.location.href = 'login.html'; }
+  </script>
+</head>
+<body class="security-theme">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo"><i class="fas fa-store"></i><span>Purplle</span></div>
+      <nav class="nav-menu">
+        <a href="manager.html" class="nav-link"><i class="fas fa-tachometer-alt"></i><span>Manager</span></a>
+        <a href="owner.html" class="nav-link"><i class="fas fa-chart-line"></i><span>Owner</span></a>
+        <a href="security.html" class="nav-link active"><i class="fas fa-shield-alt"></i><span>Security</span></a>
+        <a href="marketing.html" class="nav-link"><i class="fas fa-bullhorn"></i><span>Marketing</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="role-badge"><i class="fas fa-user-shield"></i><span>Security Team</span></div>
+        <div style="display:flex;gap:8px;">
+          <button class="switch-btn" id="switchUserBtn"><i class="fas fa-user"></i><span>Switch</span></button>
+          <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></button>
+        </div>
+      </div>
+    </aside>
+    <main class="main-panel">
+      <header class="dashboard-header">
+        <div class="header-summary">
+          <h1>Security Operations</h1>
+          <p>Live monitoring, synthesized camera feeds, and actionable incident summaries.</p>
+        </div>
+        <div class="header-controls">
+          <div class="user-pill" id="userBadge">Guest · Security</div>
+          <div class="status-card">
+            <span class="status-dot disconnected" id="connectionDot"></span>
+            <span id="lastUpdate">Last update: --:--:--</span>
+          </div>
+          <button class="btn-primary" id="screenshotBtn"><i class="fas fa-camera"></i> Capture Snapshot</button>
+        </div>
+      </header>
+      <section class="dashboard-grid" style="margin-top: 24px;">
+        <article class="glass-card chart-card" style="grid-column: span 8;">
+          <div class="card-header"><h3>Simulated Camera Feed</h3><span class="meta">Live motion and alert overlay</span></div>
+          <div class="chart-container"><canvas id="cameraFeed" width="1024" height="360"></canvas></div>
+        </article>
+        <article class="glass-card small-card" style="grid-column: span 4; gap: 20px;">
+          <div>
+            <div class="card-header"><h3>Current Metrics</h3></div>
+            <div class="metric-card"><strong>People inside</strong><div class="kpi-value" id="currentOccupancy">0</div></div>
+            <div class="metric-card"><strong>Suspicious Activity</strong><div class="kpi-value" id="suspiciousCount">0</div></div>
+            <div class="metric-card"><strong>Blacklist Matches</strong><div class="kpi-value" id="blacklistMatches">0</div></div>
+          </div>
+          <div>
+            <div class="card-header"><h3>Response Controls</h3></div>
+            <button class="btn-secondary" id="soundToggleBtn"><i class="fas fa-bell"></i> Sound Alerts</button>
+            <div id="alertSummary" class="mini-text">No critical incidents detected.</div>
+          </div>
+        </article>
+      </section>
+      <section class="glass-card table-card" style="margin-top: 18px;">
+        <div class="card-header"><h3>Incident Timeline</h3></div>
+        <div class="table-responsive"><table><thead><tr><th>Time</th><th>Type</th><th>Person</th><th>Severity</th></tr></thead><tbody id="incidentBody"></tbody></table></div>
+      </section>
+      <section class="dashboard-grid" style="margin-top: 18px;">
+        <article class="glass-card chart-card" style="grid-column: span 6; padding: 24px;">
+          <div class="card-header"><h3>Social Distancing Monitor</h3></div>
+          <div class="mini-text" id="distanceStatus">Monitoring active zones.</div>
+        </article>
+        <article class="glass-card chart-card" style="grid-column: span 6; padding: 24px;">
+          <div class="card-header"><h3>Loitering Detection</h3></div>
+          <div class="mini-text" id="loiteringStatus">No prolonged presence detected.</div>
+        </article>
+      </section>
+      <div id="toastContainer" class="toast-container"></div>
+    </main>
+  </div>
+  <script src="security.js"></script>
+</body>
+</html>

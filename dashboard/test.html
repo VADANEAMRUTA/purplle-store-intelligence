@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>API Test</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; background: #f7f9fb; color: #333; }
+    pre { background: #fff; padding: 16px; border: 1px solid #ddd; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h2>API Test</h2>
+  <pre id="result">Testing...</pre>
+  <script>
+    fetch('http://localhost:8080/api/health')
+      .then((response) => response.json())
+      .then((data) => document.getElementById('result').innerText = JSON.stringify(data, null, 2))
+      .catch((err) => document.getElementById('result').innerText = 'Error: ' + err.message);
+  </script>
+</body>
+</html>

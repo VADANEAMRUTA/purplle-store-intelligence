@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Store Manager | Purplle Intelligence</title>
+  <script src="init.js"></script>
+  <link rel="stylesheet" href="dashboard-common.css" />
+  <link rel="stylesheet" href="manager.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-Tm20GZ8Ht0D+XvE/OVfUzVrYw5Za3jKjUElq2LWDlePw3JDcYqqn4FiptyoWFeSeR5bgN+l0Myqi7dFbdc2/7w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+</head>
+<body class="manager-theme">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo"><i class="fas fa-store"></i><span>Purplle</span></div>
+      <nav class="nav-menu">
+        <a href="manager.html" class="nav-link active"><i class="fas fa-tachometer-alt"></i><span>Manager</span></a>
+        <a href="owner.html" class="nav-link"><i class="fas fa-chart-line"></i><span>Owner</span></a>
+        <a href="security.html" class="nav-link"><i class="fas fa-shield-alt"></i><span>Security</span></a>
+        <a href="marketing.html" class="nav-link"><i class="fas fa-bullhorn"></i><span>Marketing</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="role-badge"><i class="fas fa-user-tie"></i><span>Store Manager</span></div>
+        <div style="display:flex;gap:8px;">
+          <button class="switch-btn" id="switchUserBtn"><i class="fas fa-user"></i><span>Switch</span></button>
+          <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></button>
+        </div>
+      </div>
+    </aside>
+    <main class="main-panel">
+      <header class="dashboard-header">
+        <div class="header-summary">
+          <h1>Manager Intelligence</h1>
+          <p>Real-time occupancy, staff optimization, and operational alerts for your store floor.</p>
+        </div>
+        <div class="header-controls">
+          <div class="user-pill" id="userBadge">Guest · Manager</div>
+          <div class="range-group">
+            <label for="dateRange">Date</label>
+            <select id="dateRange">
+              <option value="today">Today</option>
+              <option value="yesterday">Yesterday</option>
+              <option value="7days">Last 7 Days</option>
+              <option value="custom">Custom Range</option>
+            </select>
+            <input type="date" id="startDate" class="hide" />
+            <input type="date" id="endDate" class="hide" />
+            <button class="btn-secondary" id="applyDateRange">Apply</button>
+          </div>
+          <div class="status-card">
+            <span class="status-dot disconnected" id="connectionDot"></span>
+            <span id="lastUpdate">Last update: --:--:--</span>
+          </div>
+          <button class="btn-primary" id="exportBtn"><i class="fas fa-file-export"></i> Export</button>
+        </div>
+      </header>
+      <section class="dashboard-grid" style="margin-top: 24px;">
+        <article class="glass-card kpi-card" style="grid-column: span 3;">
+          <div class="card-header"><h3>Current Occupancy</h3><span class="meta">Live count</span></div>
+          <div class="icon"><i class="fas fa-users"></i></div>
+          <div class="kpi-value" id="occupancy">0</div>
+          <div class="progress-labels"><span>0</span><span>Capacity</span><span>50+</span></div>
+          <div class="capacity-line"><div class="capacity-fill" id="capacityFill"></div></div>
+          <div class="mini-text" id="occupancyAlert">Loading status…</div>
+        </article>
+        <article class="glass-card kpi-card" style="grid-column: span 3;">
+          <div class="card-header"><h3>Today's Entries</h3><span class="meta">Footfall</span></div>
+          <div class="icon"><i class="fas fa-door-open"></i></div>
+          <div class="kpi-value" id="entries">0</div>
+          <div class="mini-text" id="entriesTrend">Compared to last interval</div>
+        </article>
+        <article class="glass-card kpi-card" style="grid-column: span 3;">
+          <div class="card-header"><h3>Today's Exits</h3><span class="meta">Departure count</span></div>
+          <div class="icon"><i class="fas fa-door-closed"></i></div>
+          <div class="kpi-value" id="exits">0</div>
+          <div class="mini-text" id="exitsTrend">Compared to last interval</div>
+        </article>
+        <article class="glass-card kpi-card" style="grid-column: span 3;">
+          <div class="card-header"><h3>Conversion Rate</h3><span class="meta">Visitor-to-customer</span></div>
+          <div class="icon"><i class="fas fa-percent"></i></div>
+          <div class="kpi-value" id="conversion">0%</div>
+          <div class="progress-labels"><span>Low</span><span>Target</span><span>High</span></div>
+          <div class="efficiency-line"><div class="efficiency-fill" id="conversionFill"></div></div>
+        </article>
+      </section>
+      <section class="dashboard-grid" style="margin-top: 18px; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px;">
+        <article class="alert-card glass-card" style="grid-column: span 12;" id="overcrowdingAlert">
+          <div class="alert-header">
+            <i class="fas fa-users"></i>
+            <div>
+              <h3>Occupancy Alert System</h3>
+              <p class="meta">Real-time store capacity monitoring</p>
+            </div>
+            <span class="alert-badge normal" id="alertLevel">NORMAL</span>
+          </div>
+          <div class="alert-content">
+            <div class="occupancy-meter">
+              <div class="meter-fill" id="occupancyMeterFill"></div>
+            </div>
+            <div class="occupancy-stats">
+              <span>Current: <strong id="currentOccupancyAlert">0</strong> / <span id="maxCapacity">50</span></span>
+              <span>Safe space: <strong id="safeSpace">50</strong> people</span>
+            </div>
+            <div id="alertMessage" class="alert-message normal">✅ Normal occupancy levels</div>
+            <div id="alertAction" class="alert-action">Continue normal operations</div>
+            <button class="alert-btn" id="acknowledgeBtn" style="display:none">✓ Acknowledge Alert</button>
+          </div>
+        </article>
+      </section>
+      <section class="dashboard-grid" style="margin-top: 18px; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px;">
+        <article class="glass-card chart-card" style="grid-column: span 8;">
+          <div class="card-header"><h3>Hourly Footfall Trend</h3><span class="meta">Last 12 hours</span></div>
+          <div class="chart-container"><canvas id="trendChart" height="320"></canvas></div>
+        </article>
+        <article class="glass-card chart-card" style="grid-column: span 4;">
+          <div class="card-header"><h3>Staff Optimization Meter</h3><span class="meta">Recommended allocation</span></div>
+          <div class="chart-container" style="height: 320px;"><canvas id="occupancyGauge"></canvas></div>
+          <div class="mini-text" id="staffRecText">Loading recommendations…</div>
+        </article>
+      </section>
+      <section class="dashboard-grid" style="margin-top: 18px; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px;">
+        <article class="glass-card table-card" style="grid-column: span 7;">
+          <div class="card-header"><h3>Recent Events</h3><span class="meta">Last 20 entries</span></div>
+          <div class="search-bar" style="margin-bottom: 16px;">
+            <input type="search" id="eventSearch" placeholder="Search by Person ID or event" />
+            <select id="eventFilter"><option value="all">All Events</option><option value="ENTRY">Entries</option><option value="EXIT">Exits</option></select>
+          </div>
+          <div class="table-responsive"><table><thead><tr><th>Time</th><th>Person ID</th><th>Event</th><th>Dwell</th><th>Action</th></tr></thead><tbody id="eventsTableBody"></tbody></table></div>
+          <div class="pagination" id="pagination"></div>
+        </article>
+        <article class="glass-card small-card" style="grid-column: span 5; display: grid; gap: 18px;">
+          <div>
+            <div class="card-header"><h3>Peak Hours Prediction</h3><span class="meta">Expected busiest slots</span></div>
+            <div class="badge-pill" id="peakHours">--</div>
+          </div>
+          <div>
+            <div class="card-header"><h3>Alerts</h3><span class="meta">Operational notifications</span></div>
+            <div id="alertFeed"><p class="mini-text">No active alerts.</p></div>
+          </div>
+          <div>
+            <div class="card-header"><h3>Staff Recommendation</h3></div>
+            <div id="staffRecommendation"></div>
+          </div>
+        </article>
+      </section>
+      <div id="toastContainer" class="toast-container"></div>
+    </main>
+  </div>
+  <script src="manager.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+﻿body.security-theme { --accent: #f44336; --accent-soft: rgba(244, 67, 54, 0.16); }
+.sidebar .logo i { color: var(--accent); }
+.nav-link.active, .nav-link:hover { background: rgba(244, 67, 54, 0.14); }
+.metric-card { display: grid; gap: 8px; padding: 18px; border-radius: 22px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); }
+.metric-card strong { color: var(--text-secondary); }
+.metric-card .kpi-value { margin-top: 8px; }
+#cameraFeed { width: 100%; height: auto; border-radius: 24px; border: 1px solid rgba(255,255,255,0.12); background: #08111f; }
+.btn-primary { background: linear-gradient(135deg, #f44336, #ff6b6b); box-shadow: 0 16px 30px rgba(244, 67, 54, 0.18); }
+.table-card .table-responsive { max-height: 360px; overflow-y: auto; }

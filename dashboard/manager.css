@@ -1,0 +1,113 @@
+﻿body.manager-theme { --accent: #2196f3; --accent-soft: rgba(33, 150, 243, 0.18); }
+.sidebar .logo i { color: var(--accent); }
+.nav-link.active, .nav-link:hover { background: rgba(33, 150, 243, 0.14); }
+.kpi-card { min-height: 220px; }
+.capacity-fill { background: #2196f3; }
+.efficiency-fill { background: #42a5f5; }
+.staff-recommendation { display: grid; gap: 16px; padding: 18px; background: rgba(255,255,255,0.05); border-radius: 24px; }
+.staff-recommendation h4 { margin: 0 0 8px; font-size: 1rem; }
+.staff-recommendation p { margin: 0; color: var(--text-secondary); }
+.progress-labels span { font-size: 0.9rem; }
+.alert-pill { background: rgba(33, 150, 243, 0.14); }
+#eventSearch { min-width: 230px; }
+#pagination { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+
+.alert-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+    border-left: 4px solid #2196F3;
+}
+
+.alert-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.alert-header i {
+    font-size: 24px;
+    color: #ff9800;
+}
+
+.alert-badge {
+    margin-left: auto;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.alert-badge.normal { background: #4caf50; color: white; }
+.alert-badge.warning { background: #ff9800; color: white; animation: pulse 1s infinite; }
+.alert-badge.critical { background: #f44336; color: white; animation: pulse 0.5s infinite; }
+
+.occupancy-meter {
+    height: 30px;
+    background: #e0e0e0;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.meter-fill {
+    height: 100%;
+    width: 0%;
+    transition: width 0.5s ease;
+    border-radius: 15px;
+}
+
+.occupancy-stats {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.alert-message {
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.alert-message.critical {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.alert-message.warning {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.alert-message.normal {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.alert-action {
+    padding: 10px;
+    background: #e3f2fd;
+    border-radius: 8px;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.alert-btn {
+    background: #2196F3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}

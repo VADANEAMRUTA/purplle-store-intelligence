@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Store Owner | Purplle Intelligence</title>
+  <script src="init.js"></script>
+  <link rel="stylesheet" href="dashboard-common.css" />
+  <link rel="stylesheet" href="owner.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-Tm20GZ8Ht0D+XvE/OVfUzVrYw5Za3jKjUElq2LWDlePw3JDcYqqn4FiptyoWFeSeR5bgN+l0Myqi7dFbdc2/7w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+</head>
+<body class="owner-theme">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="logo"><i class="fas fa-store"></i><span>Purplle</span></div>
+      <nav class="nav-menu">
+        <a href="manager.html" class="nav-link"><i class="fas fa-tachometer-alt"></i><span>Manager</span></a>
+        <a href="owner.html" class="nav-link active"><i class="fas fa-chart-line"></i><span>Owner</span></a>
+        <a href="security.html" class="nav-link"><i class="fas fa-shield-alt"></i><span>Security</span></a>
+        <a href="marketing.html" class="nav-link"><i class="fas fa-bullhorn"></i><span>Marketing</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="role-badge"><i class="fas fa-briefcase"></i><span>Store Owner</span></div>
+        <div style="display:flex;gap:8px;">
+          <button class="switch-btn" id="switchUserBtn"><i class="fas fa-user"></i><span>Switch</span></button>
+          <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i><span>Logout</span></button>
+        </div>
+      </div>
+    </aside>
+    <main class="main-panel">
+      <header class="dashboard-header">
+        <div class="header-summary">
+          <h1>Owner Performance View</h1>
+          <p>Strategic revenue, growth, and store comparison analytics for executive decisions.</p>
+        </div>
+        <div class="header-controls">
+          <div class="user-pill" id="userBadge">Guest · Owner</div>
+          <div class="status-card">
+            <span class="status-dot disconnected" id="connectionDot"></span>
+            <span id="lastUpdate">Last update: --:--:--</span>
+          </div>
+          <button class="btn-primary" id="exportBtn"><i class="fas fa-file-export"></i> Export</button>
+        </div>
+      </header>
+      <section class="dashboard-grid" style="margin-top: 24px; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px;">
+        <article class="glass-card kpi-card" style="grid-column: span 3;">
+          <div class="card-header"><h3>Revenue Today</h3><span class="meta">Current period</span></div>
+          <div class="kpi-value" id="revenueToday">₹0</div>
+          <div class="mini-text" id="revenueTodayDelta">vs yesterday</div>
+        </article>
+        <article class="glass-card kpi-card" style="grid-column: span 3;">
+          <div class="card-header"><h3>Revenue This Month</h3><span class="meta">Forecasted total</span></div>
+          <div class="kpi-value" id="revenueMonth">₹0</div>
+          <div class="mini-text" id="revenueMonthDelta">vs last month</div>
+        </article>
+        <article class="glass-card kpi-card" style="grid-column: span 3;">
+          <div class="card-header"><h3>Footfall Growth</h3><span class="meta">Period comparison</span></div>
+          <div class="kpi-value" id="growthRate">0%</div>
+          <div class="mini-text" id="growthRateMeta">Compared to last month</div>
+        </article>
+        <article class="glass-card kpi-card" style="grid-column: span 3;">
+          <div class="card-header"><h3>Avg Ticket Size</h3><span class="meta">Revenue per visit</span></div>
+          <div class="kpi-value" id="avgTicket">₹0</div>
+          <div class="mini-text" id="avgTicketMeta">Based on recent traffic</div>
+        </article>
+      </section>
+      <section class="dashboard-grid" style="margin-top: 18px; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px;">
+        <article class="glass-card chart-card" style="grid-column: span 7;">
+          <div class="card-header"><h3>Footfall vs Revenue</h3><span class="meta">Last 30 days</span></div>
+          <div class="chart-container"><canvas id="dualAxisChart" height="340"></canvas></div>
+        </article>
+        <article class="glass-card chart-card" style="grid-column: span 5; display: grid; gap: 24px;">
+          <div>
+            <div class="card-header"><h3>Store Comparison</h3></div>
+            <div class="chart-container" style="height: 240px;"><canvas id="storePieChart"></canvas></div>
+          </div>
+          <div>
+            <div class="card-header"><h3>ROI Calculator</h3></div>
+            <div class="range-group" style="margin-bottom: 12px;"><label for="marketingSpend">Marketing Spend</label><input id="marketingSpend" type="range" min="50" max="400" step="10" value="120" /></div>
+            <div class="mini-text">Projected ROI: <span id="roiValue">0%</span></div>
+          </div>
+        </article>
+      </section>
+      <section class="dashboard-grid" style="margin-top: 18px; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px;">
+        <article class="glass-card chart-card" style="grid-column: span 7;">
+          <div class="card-header"><h3>Day-wise Performance</h3></div>
+          <div class="chart-container"><canvas id="stackedChart" height="340"></canvas></div>
+        </article>
+        <article class="glass-card chart-card" style="grid-column: span 5; padding-bottom: 18px;">
+          <div class="card-header"><h3>Busiest Days Heatmap</h3></div>
+          <div id="heatmapGrid" class="heatmap-grid"></div>
+        </article>
+      </section>
+      <section class="glass-card table-card" style="margin-top: 18px;">
+        <div class="card-header"><h3>Year-over-Year Comparison</h3></div>
+        <div class="table-responsive"><table><thead><tr><th>Metric</th><th>Current</th><th>Previous</th><th>Change</th></tr></thead><tbody id="yoyTableBody"></tbody></table></div>
+      </section>
+      <div id="toastContainer" class="toast-container"></div>
+    </main>
+  </div>
+  <script src="owner.js"></script>
+</body>
+</html>
